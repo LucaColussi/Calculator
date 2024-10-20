@@ -34,7 +34,8 @@ html, body {
     border: none;
     box-sizing: border-box;
     border-radius: 60px;
-    background-color: rgb(45, 45, 45);
+    background-color: #ff9f0a;
     height: 100px;
     cursor: pointer;
 }
+
