@@ -1,6 +1,5 @@
 html, body {
     background-color: #000000;
-
 }
 
 * {
@@ -13,6 +12,7 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
 .display {
     display: flex;
     justify-content: flex-end;
@@ -54,5 +54,9 @@ html, body {
     background-color: #ff9f0a;
     height: 100px;
     cursor: pointer;
+}
+
+.btn:active {
+    opacity: 0.8;    
 }
 

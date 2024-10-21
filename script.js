@@ -1,6 +1,7 @@
 let display = document.querySelector(".display");
 let pi = document.createElement("p");
-
+display.appendChild(pi);
+let written = false;
 
 function drawButtons() {
     let cont = document.querySelector(".buttons");
@@ -33,11 +34,12 @@ function drawButtons() {
         
 
         if (i % 5 < 3) {
-            bt.style.backgroundColor = "#2a2a2c"; // Cambia il colore di sfondo (per esempio blu chiaro)
+            bt.style.backgroundColor = "#2a2a2c";
         }
 
         if (i === 3 || i === 8 || i === 13) {
-            bt.style.backgroundColor = "#5c5c5f"; // Cambia il colore di sfondo (per esempio giallo oro)
+            bt.style.backgroundColor = "#5c5c5f"; 
+            
         }
         
         cont.appendChild(bt);
@@ -45,9 +47,17 @@ function drawButtons() {
 }
 
 function writeOnDisplay(value) {
-    console.log(value);
-    if(pi.textContent === "0" && value !== "+" && value !== "/" && value !== "*" && value !== "%") {
-        pi.innerHTML = ""; // Svuota il contenitore
+    const operators = ['+', '-', '*', '/', '%', ','];
+    if(written && value !== "=") {
+        if(!operators.includes(value)) {
+            erase(0);
+        } 
+        written = false;
+    }
+    if(lastExp(pi.textContent) === "0" && value !== "+" && value !== "/" && value !== "*" && value !== "%" && value !== ",") {
+        let text = pi.textContent;
+        let newText = text.slice(0, -1);
+        pi.textContent = newText;
     }
     if(value === "git") {
         window.open("https://github.com/LucaColussi");
@@ -56,13 +66,13 @@ function writeOnDisplay(value) {
         evaluate(pi.textContent);
     }
     else if(value === "AC") {
-        erase();
+        erase(0);
     } 
     else if(value === "+/-"){
         console.log("lavori in corso...");
     }
     else if(value === ","){
-        if(!isPresent(pi.textContent)) {
+        if(!isPresentComma(pi.textContent)) {
             write(value);
         }
     }
@@ -74,32 +84,48 @@ function writeOnDisplay(value) {
     else {
         write(value);
     }
-    display.appendChild(pi);
 }
 
 function write(text) {
     pi.textContent += text;
 }
 
-function erase() {
-    pi.innerText = "0";
+function erase(tmp) {
+    pi.innerText = tmp;
 }
 
-function isPresent(exp) {
-    if(exp.includes(",")) return true;
+function isPresentComma(exp) {
+    if(lastExp(exp).includes(",") || isNear(exp)) return true;
     return false;
 }
 
 function isNear(exp) {
-    const operators = ['+', '-', '*', '/', '%'];
+    const operators = ['+', '-', '*', '/', '%', ','];
     if(operators.includes(exp.slice(-1))) return true;
     return false;
 }
 
-function evaluate(exp) {
-    erase();
-    console.log(exp);
+function lastExp(exp) {
+    // L'espressione regolare cerca l'ultimo numero che segue un operatore
+    const match = exp.match(/.*[+\-*/%]\s*([\d,.]+)\s*$/);
+    
+    // Se trova un match, restituisce il numero catturato, altrimenti restituisce la stringa intera
+    return match ? match[1] : exp.trim();
 }
+
+function evaluate(exp) {
+    try {
+        exp = exp.replace(/,/g, ".");
+        let result = eval(exp);
+        
+        // Arrotonda il risultato a 10 decimali per evitare problemi di precisione
+        result = parseFloat(result.toFixed(10));
+        result = result.toString().replace(".", ",");
+        pi.textContent = result;
+        written = true;
+    } catch (error) {}
+}
+
 
 drawButtons();
 writeOnDisplay(0);
