@@ -26,7 +26,7 @@ function drawButtons() {
         bt.style.width = W + "px";
         if(buttons[i] === "git") {
             bt.innerHTML = `
-                    <img src="/images/gitIcon.png" alt="GitHub" style="width: 40px; height: 40px;">
+                    <img src="./images/gitIcon.png" alt="GitHub" style="width: 40px; height: 40px;">
             `;
         } else {
             bt.innerHTML = buttons[i];
