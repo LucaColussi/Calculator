@@ -7,13 +7,30 @@ html, body {
     padding: 0;
     margin: 0;
 }
+
 .container {
     height: 100vh; 
     display: flex;
     flex-direction: column;
 }
 .display {
+    display: flex;
+    justify-content: flex-end;
     height: 300px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.display p {
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", 
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+    text-align: right;
+    padding: 2px;
 }
 
 .buttons {
