@@ -51,6 +51,10 @@ function drawButtons() {
 }
 
 function writeOnDisplay(value) {
+    if(value === "git") {
+        window.open("https://github.com/LucaColussi");
+        return;
+    }    
     const operators = ['+', '-', '*', '/', '%', ','];
     if(written && value !== "=") {
         if(!operators.includes(value)) {
@@ -63,10 +67,7 @@ function writeOnDisplay(value) {
         let newText = text.slice(0, -1);
         pi.textContent = newText;
     }
-    if(value === "git") {
-        window.open("https://github.com/LucaColussi");
-    }    
-    else if(value === "=") {
+    if(value === "=") {
         evaluate(pi.textContent);
     }
     else if(value === "AC") {
@@ -133,6 +134,7 @@ function previousOperations(exp) {
 
 function evaluate(exp) {
     try {
+        let originalExp = exp;
         exp = exp.replace(/,/g, ".");
         let result = eval(exp);
         
@@ -140,8 +142,8 @@ function evaluate(exp) {
         result = parseFloat(result.toFixed(10));
         result = result.toString().replace(".", ",");
         pi.textContent = result;
-        if(result.toString() !== exp){
-            previousOperations(exp);
+        if(result.toString() !== originalExp){
+            previousOperations(originalExp);
         }
         written = true;
     } catch (error) {}
