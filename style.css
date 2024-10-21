@@ -15,7 +15,8 @@ html, body {
 
 .display {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
     height: 300px;
     padding-left: 100px;
     padding-right: 100px;
@@ -24,13 +25,16 @@ html, body {
 .display p {
     font-family: -apple-system, BlinkMacSystemFont, "San Francisco", 
     "Helvetica Neue", Helvetica, Arial, sans-serif;
-    display: flex;
-    align-items: flex-end;
     color: white;
     font-size: 80px;
     font-weight: bold;
     text-align: right;
     padding: 2px;
+}
+
+#previous {
+    color: #5b5b5f;
+    font-size: 35px;
 }
 
 .buttons {

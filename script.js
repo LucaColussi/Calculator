@@ -3,6 +3,10 @@ let pi = document.createElement("p");
 display.appendChild(pi);
 let written = false;
 
+let previous = document.createElement("p");
+display.appendChild(previous);
+previous.id = "previous";
+
 function drawButtons() {
     let cont = document.querySelector(".buttons");
     cont.style.display = "flex";
@@ -54,7 +58,7 @@ function writeOnDisplay(value) {
         } 
         written = false;
     }
-    if(lastExp(pi.textContent) === "0" && value !== "+" && value !== "/" && value !== "*" && value !== "%" && value !== ",") {
+    if(getLastExp(pi.textContent) === "0" && value !== "+" && value !== "/" && value !== "*" && value !== "%" && value !== "," && value !== "=") {
         let text = pi.textContent;
         let newText = text.slice(0, -1);
         pi.textContent = newText;
@@ -67,9 +71,10 @@ function writeOnDisplay(value) {
     }
     else if(value === "AC") {
         erase(0);
+        previousOperations("")
     } 
     else if(value === "+/-"){
-        console.log("lavori in corso...");
+
     }
     else if(value === ","){
         if(!isPresentComma(pi.textContent)) {
@@ -95,7 +100,7 @@ function erase(tmp) {
 }
 
 function isPresentComma(exp) {
-    if(lastExp(exp).includes(",") || isNear(exp)) return true;
+    if(getLastExp(exp).includes(",") || isNear(exp)) return true;
     return false;
 }
 
@@ -105,12 +110,25 @@ function isNear(exp) {
     return false;
 }
 
-function lastExp(exp) {
+function getLastExp(exp) {
     // L'espressione regolare cerca l'ultimo numero che segue un operatore
     const match = exp.match(/.*[+\-*/%]\s*([\d,.]+)\s*$/);
     
     // Se trova un match, restituisce il numero catturato, altrimenti restituisce la stringa intera
     return match ? match[1] : exp.trim();
+}
+
+function getLastOperator(exp) {
+        // L'espressione regolare cerca l'ultimo operatore nella stringa
+        const match = exp.match(/[+\-*/%](?=[^+\-*/%]*$)/);
+        
+        // Se trova un match, restituisce l'operatore trovato, altrimenti null
+        console.log(match ? match[0] : null);
+        return match ? match[0] : null;
+}
+
+function previousOperations(exp) {
+    previous.innerText = exp;
 }
 
 function evaluate(exp) {
@@ -122,6 +140,9 @@ function evaluate(exp) {
         result = parseFloat(result.toFixed(10));
         result = result.toString().replace(".", ",");
         pi.textContent = result;
+        if(result.toString() !== exp){
+            previousOperations(exp);
+        }
         written = true;
     } catch (error) {}
 }
