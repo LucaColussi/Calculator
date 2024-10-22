@@ -82,11 +82,16 @@ function writeOnDisplay(value) {
             write(value);
         }
     }
-    else if(value === "+" || value === "-" || value === "/" || value === "*" || value === "%") {
+    else if(value === "+" || value === "/" || value === "*" || value === "%") {
         if(!isNear(pi.textContent)){
             write(value);
         }
     } 
+    else if(value === "-") {
+        if(!isNearWoutMultipliers(pi.textContent)){
+            write(value);
+        }
+    }
     else {
         write(value);
     }
@@ -107,6 +112,12 @@ function isPresentComma(exp) {
 
 function isNear(exp) {
     const operators = ['+', '-', '*', '/', '%', ','];
+    if(operators.includes(exp.slice(-1))) return true;
+    return false;
+}
+
+function isNearWoutMultipliers(exp) {
+    const operators = ['+', '-', '%', ','];
     if(operators.includes(exp.slice(-1))) return true;
     return false;
 }
