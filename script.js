@@ -12,7 +12,7 @@ function drawButtons() {
     cont.style.display = "flex";
     cont.style.flexWrap = "wrap";
     cont.style.gap = "10px";
-    const W = (window.innerWidth - 240) / 5;
+    //const W = (window.innerWidth - 240) / 5;
     const buttons = [
         '7', '8', '9', 'AC', '/',
         '4', '5', '6', '+/-', '*',
@@ -23,7 +23,7 @@ function drawButtons() {
     for(let i = 0; i < 20; i++){
         let bt = document.createElement("button");
         bt.classList.add("btn");
-        bt.style.width = W + "px";
+        //bt.style.width = W + "px";
         if(buttons[i] === "git") {
             bt.innerHTML = `
                     <img src="./images/gitIcon.png" alt="GitHub" style="width: 40px; height: 40px;">
