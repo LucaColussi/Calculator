@@ -36,7 +36,6 @@ function drawButtons() {
             writeOnDisplay(buttons[i]);
         };
         
-
         if (i % 5 < 3) {
             bt.style.backgroundColor = "#2a2a2c";
         }
@@ -45,7 +44,6 @@ function drawButtons() {
             bt.style.backgroundColor = "#5c5c5f"; 
             
         }
-        
         cont.appendChild(bt);
     }
 }
@@ -74,9 +72,21 @@ function writeOnDisplay(value) {
         erase(0);
         previousOperations("")
     } 
-    else if(value === "+/-"){
-
-    }
+    else if (value === "+/-") {
+        let tmp = getLastExpWithSign(pi.textContent);
+        if (tmp === null) return;  
+        tmp *= -1;  
+        console.log("number *- :" + tmp);
+        console.log("w out last exp : " + removeLastExpWithSign(pi.textContent));
+        erase(removeLastExpWithSign(pi.textContent));   
+    
+        // Se il numero è positivo e non è il primo nella stringa, aggiungi il segno "+"
+        if (tmp > 0 && pi.textContent.trim() !== "") {
+            write("+" + tmp);  // Aggiungi il segno +
+        } else {
+            write(tmp);  // Scrivi il numero normalmente
+        }
+    }    
     else if(value === ","){
         if(!isPresentComma(pi.textContent)) {
             write(value);
@@ -117,7 +127,7 @@ function isNear(exp) {
 }
 
 function isNearWoutMultipliers(exp) {
-    const operators = ['+', '-', '%', ','];
+    const operators = ['+', '-', ','];
     if(operators.includes(exp.slice(-1))) return true;
     return false;
 }
@@ -139,6 +149,33 @@ function getLastOperator(exp) {
         return match ? match[0] : null;
 }
 
+function getLastExpWithSign(exp) {
+    // Verifica se l'espressione termina con un operatore, in tal caso ritorna null
+    if (/[+\-*/%]$/.test(exp)) {
+        return null;
+    }
+
+    // Usa una regular expression per trovare tutti i numeri (positivi o negativi)
+    let matches = exp.match(/-?\d+/g);
+
+    // Se ci sono numeri, ritorna l'ultimo con segno
+    if (matches) {
+        return parseInt(matches[matches.length - 1], 10);
+    }
+
+    // Se non ci sono numeri validi, ritorna null
+    return null;
+}
+
+function removeLastExpWithSign(exp) {
+    return exp.replace(/([+\-*/%])?-?\d+(\.\d+)?$/, function(match, operator) {
+        if (operator === '*' || operator === '/' || operator === '%') {
+            return operator;  // Mantieni l'operatore * o /
+        }
+        return ''; 
+    });
+}
+
 function previousOperations(exp) {
     previous.innerText = exp;
 }
@@ -147,6 +184,10 @@ function evaluate(exp) {
     try {
         let originalExp = exp;
         exp = exp.replace(/,/g, ".");
+        
+        // Trasforma il simbolo % in una divisione per 100, ma solo se seguito da un numero o nulla
+        exp = exp.replace(/(\d+)%/g, "($1/100)");
+        
         let result = eval(exp);
         
         // Arrotonda il risultato a 10 decimali per evitare problemi di precisione
@@ -159,6 +200,7 @@ function evaluate(exp) {
         written = true;
     } catch (error) {}
 }
+
 
 
 drawButtons();
