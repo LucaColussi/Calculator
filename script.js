@@ -133,37 +133,25 @@ function isNearWoutMultipliers(exp) {
 }
 
 function getLastExp(exp) {
-    // L'espressione regolare cerca l'ultimo numero che segue un operatore
     const match = exp.match(/.*[+\-*/%]\s*([\d,.]+)\s*$/);
-    
-    // Se trova un match, restituisce il numero catturato, altrimenti restituisce la stringa intera
     return match ? match[1] : exp.trim();
 }
 
 function getLastOperator(exp) {
-        // L'espressione regolare cerca l'ultimo operatore nella stringa
         const match = exp.match(/[+\-*/%](?=[^+\-*/%]*$)/);
-        
-        // Se trova un match, restituisce l'operatore trovato, altrimenti null
         console.log(match ? match[0] : null);
         return match ? match[0] : null;
 }
 
 function getLastExpWithSign(exp) {
-    // Verifica se l'espressione termina con un operatore, in tal caso ritorna null
     if (/[+\-*/%]$/.test(exp)) {
         return null;
     }
-
-    // Usa una regular expression per trovare tutti i numeri (positivi o negativi)
     let matches = exp.match(/-?\d+/g);
 
-    // Se ci sono numeri, ritorna l'ultimo con segno
     if (matches) {
         return parseInt(matches[matches.length - 1], 10);
     }
-
-    // Se non ci sono numeri validi, ritorna null
     return null;
 }
 

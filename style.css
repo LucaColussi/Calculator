@@ -30,6 +30,8 @@ html, body {
     font-weight: bold;
     text-align: right;
     padding: 2px;
+    white-space: nowrap; /* Aggiungi questa proprietà per prevenire il wrapping del testo */
+    overflow-x: auto; /* Permetti lo scrolling orizzontale del testo */
 }
 
 #previous {
