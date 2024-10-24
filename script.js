@@ -53,7 +53,7 @@ function writeOnDisplay(value) {
         window.open("https://github.com/LucaColussi");
         return;
     }    
-    const operators = ['+', '-', '*', '/', '%', ','];
+    const operators = ['+', '-', '*', '/', '%', ',', '+/-'];
     if(written && value !== "=") {
         if(!operators.includes(value)) {
             erase(0);
@@ -76,8 +76,6 @@ function writeOnDisplay(value) {
         let tmp = getLastExpWithSign(pi.textContent);
         if (tmp === null) return;  
         tmp *= -1;  
-        console.log("number *- :" + tmp);
-        console.log("w out last exp : " + removeLastExpWithSign(pi.textContent));
         erase(removeLastExpWithSign(pi.textContent));   
     
         // Se il numero è positivo e non è il primo nella stringa, aggiungi il segno "+"
@@ -139,7 +137,6 @@ function getLastExp(exp) {
 
 function getLastOperator(exp) {
         const match = exp.match(/[+\-*/%](?=[^+\-*/%]*$)/);
-        console.log(match ? match[0] : null);
         return match ? match[0] : null;
 }
 
@@ -173,21 +170,25 @@ function evaluate(exp) {
         let originalExp = exp;
         exp = exp.replace(/,/g, ".");
         
-        // Trasforma il simbolo % in una divisione per 100, ma solo se seguito da un numero o nulla
-        exp = exp.replace(/(\d+)%/g, "($1/100)");
-        
-        let result = eval(exp);
-        
+        // Gestione della percentuale: sostituisce solo quando % è preceduto da un numero e seguito da un operatore o dal termine della stringa
+        exp = exp.replace(/(\d+)%(?=\s*[+\-*/)]|$)/g, "($1/100)");
+
+        let result = eval(exp);  // Ora % sarà interpretato correttamente come modulo o percentuale
+
         // Arrotonda il risultato a 10 decimali per evitare problemi di precisione
         result = parseFloat(result.toFixed(10));
         result = result.toString().replace(".", ",");
         pi.textContent = result;
+
         if(result.toString() !== originalExp){
             previousOperations(originalExp);
         }
         written = true;
-    } catch (error) {}
+    } catch (error) {
+        console.error(error);
+    }
 }
+
 
 
 

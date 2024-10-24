@@ -16,10 +16,9 @@ html, body {
 .display {
     display: flex;
     flex-shrink: 0; /* Evita che il display si ridimensioni */
-
     flex-direction: column-reverse;
     justify-content: flex-start;
-    height: 300px;
+    height: 40vh;
     padding-left: 100px;
     padding-right: 100px;
     mask-image: linear-gradient(to right, transparent, black 10%); /* Sfumatura da sinistra verso destra */
@@ -68,5 +67,11 @@ html, body {
 
 .btn:active {
     opacity: 0.8;    
+}
+
+@media (max-width: 1000px){
+    .btn {
+        width: 16%;
+    }
 }
 
