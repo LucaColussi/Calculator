@@ -86,12 +86,12 @@ function writeOnDisplay(value) {
             write(value);
         }
     }
-    else if(value === "+" || value === "/" || value === "*" || value === "%") {
+    else if(value === "/" || value === "*" || value === "%") {
         if(!isNear(pi.textContent)){
             write(value);
         }
     } 
-    else if(value === "-") {
+    else if(value === "-" || value === "+") {
         if(!isNearWoutMultipliers(pi.textContent)){
             write(value);
         }
