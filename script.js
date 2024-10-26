@@ -9,10 +9,6 @@ previous.id = "previous";
 
 function drawButtons() {
     let cont = document.querySelector(".buttons");
-    cont.style.display = "flex";
-    cont.style.flexWrap = "wrap";
-    cont.style.gap = "10px";
-    //const W = (window.innerWidth - 240) / 5;
     const buttons = [
         '7', '8', '9', 'AC', '/',
         '4', '5', '6', '+/-', '*',

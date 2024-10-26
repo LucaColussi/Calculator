@@ -42,7 +42,11 @@ html, body {
 }
 
 .buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
     flex: 1; /* Occupa tutto lo spazio rimanente */
+    justify-content: space-between;
     padding-top: 10px;
     padding-left: 100px;
     padding-right: 100px;
@@ -50,7 +54,8 @@ html, body {
 }
 
 .btn {
-    width: 19%;
+    /* width: 19%; */
+    /* height: 13vh; */
     color: rgb(255, 255, 255);
     font-weight: bold;
     font-size: 2rem;
@@ -61,7 +66,6 @@ html, body {
     box-sizing: border-box;
     border-radius: 60px;
     background-color: #ff9f0a;
-    height: 100px;
     cursor: pointer;
 }
 
@@ -69,9 +73,20 @@ html, body {
     opacity: 0.8;    
 }
 
-@media (max-width: 1000px){
+@media (max-width: 640px){
+    .buttons {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .display {
+        /* height: 50vh; */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
     .btn {
-        width: 16%;
+        /* aspect-ratio: 1/1; */
+        border-radius: 50%;
+        font-size: 1.5rem;
     }
 }
 
