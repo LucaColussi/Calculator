@@ -15,10 +15,10 @@ html, body {
 
 .display {
     display: flex;
-    flex-shrink: 0; /* Evita che il display si ridimensioni */
+    /* flex-shrink: 0; Evita che il display si ridimensioni */
     flex-direction: column-reverse;
     justify-content: flex-start;
-    height: 40vh;
+    height: 20rem;
     padding-left: 100px;
     padding-right: 100px;
     mask-image: linear-gradient(to right, transparent, black 10%); /* Sfumatura da sinistra verso destra */
