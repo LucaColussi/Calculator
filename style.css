@@ -79,13 +79,13 @@ html, body {
         padding-right: 10px;
     }
     .display {
-        /* height: 50vh; */
+        /* height: 30vh; */
         padding-left: 10px;
         padding-right: 10px;
     }
     .btn {
         /* aspect-ratio: 1/1; */
-        border-radius: 50%;
+        border-radius: 10%;
         font-size: 1.5rem;
     }
 }
