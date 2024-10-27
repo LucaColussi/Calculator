@@ -8,7 +8,7 @@ html, body {
 }
 
 .container {
-    height: 100vh; 
+    height: 100lvh; 
     display: flex;
     flex-direction: column;
 }
@@ -18,7 +18,7 @@ html, body {
     /* flex-shrink: 0; Evita che il display si ridimensioni */
     flex-direction: column-reverse;
     justify-content: flex-start;
-    height: 20rem;
+    height: 40lvh;
     padding-left: 100px;
     padding-right: 100px;
     mask-image: linear-gradient(to right, transparent, black 10%); /* Sfumatura da sinistra verso destra */
@@ -79,12 +79,10 @@ html, body {
         padding-right: 10px;
     }
     .display {
-        /* height: 30vh; */
         padding-left: 10px;
         padding-right: 10px;
     }
     .btn {
-        /* aspect-ratio: 1/1; */
         border-radius: 10%;
         font-size: 1.5rem;
     }
